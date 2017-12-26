@@ -65,8 +65,8 @@
 
           var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 13,
-            center: pos
-
+            center: pos,
+            scrollwheel: false
           });          
         }
 
@@ -110,7 +110,8 @@
 
         map = new google.maps.Map(document.getElementById('map'), {
           center: locationforHopitals,
-          zoom: 13
+          zoom: 13,
+          scrollwheel: false
         });
 
         infowindow = new google.maps.InfoWindow();
