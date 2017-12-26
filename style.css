@@ -1,0 +1,39 @@
+.list-group-horizontal
+{
+	display: flex;
+	flex-direction: row;
+}
+.centering
+{
+	margin-top: -600px;
+}
+.list-group-item:first-child
+{
+	border-top-left-radius: .25rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .25rem; 
+}
+.list-group-item:last-child
+{
+	border-top-right-radius: .25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; 
+}
+.list-group-item
+{
+	margin-bottom: 0;
+	opacity: 0.8;
+	background-color: #1e1e1e;
+	color: white;	
+}
+.container-fluid
+{
+	margin:0;
+	padding: 0;
+}
+
+@include media-breakpoint-up(xs) { ... }
+@include media-breakpoint-up(sm) { ... }
+@include media-breakpoint-up(md) { ... }
+@include media-breakpoint-up(lg) { ... }
+@include media-breakpoint-up(xl) { ... }
