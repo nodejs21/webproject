@@ -3,7 +3,7 @@
 <head>
 	<title>TT - Blood</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="./style.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/style.css" />
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <style>
@@ -49,14 +49,44 @@
     </div>
     <script>
       function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 13,
-          center: {lat: -34.397, lng: 150.644}
-        });
-        var geocoder = new google.maps.Geocoder();
+        var pos;
+        var geocoder = new google.maps.Geocoder();  
+        var infowindow = new google.maps.InfoWindow;       
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            geocodeLatLng(geocoder, map, infowindow, pos.lat, pos.lng);
+            map.setCenter(pos);
+            loadHospitals(pos);
+          });
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: pos
+
+          });          
+        }
 
         document.getElementById('submit').addEventListener('click', function() {
           geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeLatLng(geocoder, map, infowindow, latAddress, lngAddress) {
+        var latlng = {lat: latAddress, lng: lngAddress};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              $("#address").val(results[0].formatted_address);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
         });
       }
 
